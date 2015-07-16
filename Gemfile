@@ -24,10 +24,10 @@ gem 'bootstrap-sass'
 # for haml use
 gem 'erb2haml'
 gem 'haml-rails'
-# images of prototypes
+# user avatars
+# thumbnails of prototypes
 gem 'carrierwave'
-# users avatars
-gem 'paperclip'
+gem 'rmagick'
 # user administrations
 gem 'devise'
 # pagination
