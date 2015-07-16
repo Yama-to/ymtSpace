@@ -150,8 +150,7 @@
 - to administrate users' avatars & prototypes' thumbnails
 - (with polyomorphic association)
 
-  **gem 'carrierwave'**
-  **gem 'rmagick'**
+  **gem 'carrierwave' & 'rmagick'**
 
   ```bash
   $ rails g uploader Image
