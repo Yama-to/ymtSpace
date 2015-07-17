@@ -228,3 +228,12 @@
     acts_as_taggable_on :tags
   end
   ```
+- to distinguish whether thumbnail's role is main or sub
+
+  **ActiveRecord::Enum**
+
+  ```ruby
+  class Thumbnail < ActiveRecord::Base
+    enum role: [:main, :sub]
+  end
+  ```
