@@ -100,27 +100,19 @@
   1. has_many   `Prototypes`
   2. has_many   `Likes`
   3. has_many   `Comments`
-  4. has_one    `Image`
-
-    (as: `parent`)
 
 - Prototypes
   1. has_many   `Comments`
   2. has_many   `Likes`
-  3. has_many   `Images`
-
-    (as: `parent`)
-
+  3. has_many   `Thumbnails`
   4. has_many   `Tags`
 
     (through: `Tagging`)
 
   5. belongs_to `User`
 
-- Images
-  1. belongs_to `Parent`
-
-    (polymorphic: `true`)
+- Thumbnails
+  1. belongs_to `Prototype`
 
 - Comments
   1. belongs_to `User`
@@ -148,30 +140,43 @@
   ```
 
 - to administrate users' avatars & prototypes' thumbnails
-- (with polyomorphic association)
 
   **gem 'carrierwave' & 'rmagick'**
 
   ```bash
   $ rails g uploader Image
+  $ rails g uploader Thumbnail
+  $ rails g uploader Avatar
   ```
 
   ```ruby
-  class Image < ActiveRecord::Base
-    mount_uploader :image, ImageUploader
-    belongs_to :parent, polymorphic: true
+  class ThumbnailUploader < ImageUploader
+    # delete all of default settings
+  end
+  ```
+
+  ```ruby
+  class AvatarUploader < ImageUploader
+    # delete all of default settings
+  end
+  ```
+
+  ```ruby
+  class Thumbnail < ActiveRecord::Base
+    mount_uploader :thumbnail, ThumbnailUploader
+    belongs_to :prototype
   end
   ```
 
   ```ruby
   class User < ActiveRecord::Base
-    has_one :image, as: :parent, dependent: :destroy
+    mount_uploader :avatar, AvatarUploader
   end
   ```
 
   ```ruby
   class Prototype < ActiveRecord::Base
-    has_many :images, as: :parent, dependent: :destroy
+    has_many :thumbnails
   end
   ```
 
@@ -182,15 +187,10 @@
 
   ```ruby
   class Prototype < ActiveRecord::Base
-    accepts_nested_attributes_for :images
+    accepts_nested_attributes_for :thumbnails
   end
   ```
 
-  ```ruby
-  class User < ActiveRecord::Base
-    accepts_nested_attributes_for :images
-  end
-  ```
 - to count the number of likes linked to each prototypes
 
   **ActiveRecord::Assosciations :counter_cache**
@@ -201,7 +201,7 @@
 
   ```ruby
   class AddCounterToPrototypes < ActiveRecord::Migration
-    add_column
+    add_column :prototypes, :likes_count, :integer, default: 0
   end
   ```
 
