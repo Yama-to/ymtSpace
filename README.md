@@ -181,7 +181,6 @@
   ```
 
 - to set multiple thumbnails at one time for one prototype
-- to set user's avatar together when setting profile
 
   **ActiveRecord::NestedAttributes**
 
