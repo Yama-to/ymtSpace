@@ -33,7 +33,7 @@ gem 'devise'
 # pagination
 gem 'kaminari'
 # minimalize form_for
-gem 'simple_form'
+# gem 'simple_form'
 # tag administrations
 gem 'acts-as-taggable-on'
 # important gem!
