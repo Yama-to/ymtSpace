@@ -27,7 +27,7 @@ gem 'haml-rails'
 # user avatars
 # thumbnails of prototypes
 gem 'carrierwave'
-gem 'rmagick'
+gem 'rmagick', require: 'RMagick'
 # user administrations
 gem 'devise'
 # pagination
