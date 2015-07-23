@@ -1,5 +1,14 @@
 = render "layouts/top"
 
+.container
+  .row
+    .col-sm-12.proto-content
+      .thumbnail
+        = button_tag @tag.name, class: "btn btn-tag"
+        .tag-meta
+          = link_to tag_path(@tag), class: "label label-default tag-list-number" do
+            = @tag.prototypes_from_tag.count
+            %i Projects
 .container.proto-list
   .row
     - @prototypes.each do |proto|
@@ -16,9 +25,8 @@
             .proto-posted
               = proto.posted_date
           %ul.proto-tag-list.list-inline
-            - unless proto.get_tags.blank?
-              - proto.get_tags.each do |tag|
-                %li
-                  = link_to tag.name, tag_path(tag), class: "btn btn-default"
+            - proto.get_tags.each do |tag|
+              %li
+                = link_to tag.name, tag_path(tag), class: "btn btn-default"
 .text-center
   = paginate @prototypes

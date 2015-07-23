@@ -7,18 +7,19 @@
         //login
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
-            %a.dropdown-toggle{aria: {expanded: false}, data: {toggle: "dropdown"}, href: "#", role: "button"}
+            %a.dropdown-toggle{aria: {expanded: false}, data: {toggle: "dropdown"}, role: "button"}
               = current_user.name
               %span.caret
             %ul.dropdown-menu{role: "menu"}
               %li
-                %a{href: "#"} Profile Edit
+                = link_to "My page", user_path(current_user)
               %li
-                %a{href: "#"} Logout
+                = link_to "Edit profile", edit_user_path(current_user)
+              %li
+                = link_to "Sign out", destroy_user_session_path, method: :delete
           %li
             .btn.btn-primary.navbar-btn
-              %a{href: "/proto/new"}
-                New Proto
+              = link_to "NEW PROTO", new_prototype_path
       - else
         //not login
         %ul.nav.navbar-nav.navbar-right

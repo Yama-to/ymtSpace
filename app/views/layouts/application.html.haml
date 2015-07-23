@@ -3,10 +3,19 @@
   %head
     %meta{:content => "text/html; charset=US-ASCII", "http-equiv" => "Content-Type"}/
     %title Protospace
+    %link{rel: "stylesheet", href: "//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css"}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = favicon_link_tag       'tomato.ico'
     = csrf_meta_tags
   %body
     = render "layouts/header"
+    - flash.each do |key, value|
+      - key = "info" if key == "notice"
+      - key = "danger"  if key == "alert"
+      = content_tag :div, value, class: "alert alert-#{key}"
     = yield
     = render "layouts/footer"
+    %script{src: "//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"}
+      $('#button').click(function(){$("input[type='file']");})
+
