@@ -1,0 +1,31 @@
+.container.user-new
+  = form_for @user, method: :patch do |f|
+    .col-md-8.col-md-offset-2
+      %header.row.user-nav.row
+        .form-inputs
+          .col-md-12
+            %h2 Update
+            .user-name_image.row
+              .user-name.col-md-10
+                = f.text_field :name, required: true, autofocus: true, placeholder: "Input Username"
+              .user-image.col-md-2.fileinput.fileinput-new{data: {provides: "fileinput"}}
+                .fileinput-preview{data: {trigger: "fileinput"}}
+                %div
+                  %span.btn.btn-xs
+                    = f.file_field :avatar
+          .col-md-12
+            %h4 Profile
+            .user-user-profile.row
+              .user-name.col-md-12
+                = f.text_area :profile, cols: "30", rows: "4", placeholder: "Input Profile"
+            %h4 Participation
+            .user-user-member.row
+              .user-name.col-md-12
+                = f.text_area :participation, placeholder: "Input Participation"
+            %h4 Occupation
+            .user-name_image.row
+              .user-name.col-md-12
+                = f.text_area :occupation, cols: "30", rows: "4", placeholder: "Input Occupation"
+      .row.text-center.user-btn
+        .form-actions
+          = f.submit "UPDATE", class: "button btn btn-lg btn-primary btn-block"

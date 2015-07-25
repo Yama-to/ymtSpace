@@ -1,6 +1,5 @@
-%form.container.user-new
-  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :post) do |f|
-    = f.error_notification
+.container.user-new
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), method: :post) do |f|
     .col-md-8.col-md-offset-2
       %header.row.user-nav.row
         .form-inputs
@@ -8,25 +7,61 @@
             %h2 Register
             .user-name_image.row
               .user-name.col-md-10
-                = f.input :name, required: true, autofocus: true, placeholder: "Input Username", label: false
-              .user-image.col-md-2
-                %button.btn.btn-primary Add avatar
-                = f.input :avatar, label: false, as: :file
-            = f.input :email, required: true, placeholder: "Input Email", class: "user-email", label: false, autocomplete: "off"
-            = f.input :password, required: true, placeholder: "Inpt Password", class: "user-password", label: false, autocomplete: "off"
+                = f.text_field :name, required: true, autofocus: true, placeholder: "Input Username"
+              .user-image.col-md-2.fileinput.fileinput-new{data: {provides: "fileinput"}}
+                .fileinput-preview{data: {trigger: "fileinput"}}
+                %div
+                  %span.btn.btn-xs
+                    = f.file_field :avatar
+            = f.email_field :email, required: true, placeholder: "Input Email", class: "user-email", autocomplete: "off"
+            = f.password_field :password, required: true, placeholder: "Input Password", class: "user-password", autocomplete: "off"
           .col-md-12
             %h4 Profile
             .user-user-profile.row
               .user-name.col-md-12
-                = f.input :avatar, cols: "30", rows: "4", placeholder: "Input Profile", label: false
+                = f.text_area :profile, cols: "30", rows: "4", placeholder: "Input Profile"
             %h4 Participation
             .user-user-member.row
               .user-name.col-md-12
-                = f.input :participation, placeholder: "Input Participation", label: false
+                = f.text_area :participation, placeholder: "Input Participation"
             %h4 Occupation
             .user-name_image.row
               .user-name.col-md-12
-                = f.input :occupation, cols: "30", rows: "4", placeholder: "Input Occupation", label: false
+                = f.text_area :occupation, cols: "30", rows: "4", placeholder: "Input Occupation"
       .row.text-center.user-btn
         .form-actions
-          = f.button :submit, "SIGN UP", class: "button btn btn-lg btn-primary btn-block"
+          = f.submit "SIGN UP", class: "button btn btn-lg btn-primary btn-block"
+
+-# [!important] simple_form_for version example
+-# %form.container.user-new
+-#   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+-#     = f.error_notification
+-#     .col-md-8.col-md-offset-2
+-#       %header.row.user-nav.row
+-#         .form-inputs
+-#           .col-md-12
+-#             %h2 Register
+-#             .user-name_image.row
+-#               .user-name.col-md-10
+-#                 = f.input :name, required: true, autofocus: true, placeholder: "Input Username", label: false
+-#               .user-image.col-md-2
+-#                 %button.btn.btn-primary Add avatar
+-#                 = f.input :avatar, label: false, as: :file
+-#             = f.input :email, required: true, placeholder: "Input Email", class: "user-email", label: false, autocomplete: "off"
+-#             = f.input :password, required: true, placeholder: "Input Password", class: "user-password", label: false, autocomplete: "off"
+-#           .col-md-12
+-#             %h4 Profile
+-#             .user-user-profile.row
+-#               .user-name.col-md-12
+-#                 = f.input :profile, cols: "30", rows: "4", placeholder: "Input Profile", label: false
+-#             %h4 Participation
+-#             .user-user-member.row
+-#               .user-name.col-md-12
+-#                 = f.input :participation, placeholder: "Input Participation", label: false
+-#             %h4 Occupation
+-#             .user-name_image.row
+-#               .user-name.col-md-12
+-#                 = f.input :occupation, cols: "30", rows: "4", placeholder: "Input Occupation", label: false
+-#       .row.text-center.user-btn
+-#         .form-actions
+-#           = f.button :submit, "SIGN UP", class: "button btn btn-lg btn-primary btn-block"
