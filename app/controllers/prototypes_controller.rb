@@ -19,8 +19,14 @@ class PrototypesController < ApplicationController
   def create
     prototype = current_user.prototypes.new(prototype_params)
     prototype.tag_list << tags_params
-    thumbnails_data = thumbnails_params
-    Prototype.create_prototype_data(prototype, thumbnails_data)
+    if prototype.save
+      prototype.create_thumbnails_data(thumbnails_params)
+      flash[:success] = "Successfully created your prototype."
+      redirect_to newest_prototypes_path
+    else
+      flash[:warning] = "Unfortunately failed to create."
+      redirect_to new_prototype_path
+    end
   end
 
   def edit
@@ -32,20 +38,16 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    prototype_data = prototype_params
-    thumbnails_data = thumbnails_params
     @prototype.tag_list = tags_params
-    Prototype.update_prototype_data(@prototype, prototype_data, thumbnails_data)
-  end
-
-  def newest
-    @prototypes = Prototype.order('created_at DESC').page(params[:page]).per(3)
-    render :index
-  end
-
-  def popular
-    @prototypes = Prototype.order('likes_count DESC').page(params[:page]).per(3)
-    render :index
+    if prototype.update(prototype_params)
+      prototype.thumbnails.each(&:destroy)
+      prototype.create_thumbnails_data(thumbnails_params)
+      flash[:success] = "Successfully updated your prototype."
+      redirect_to newest_prototypes_path
+    else
+      flash[:warning] = "Unfortunately failed to update."
+      redirect_to edit_prototype_path
+    end
   end
 
   private

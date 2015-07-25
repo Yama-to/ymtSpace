@@ -1,11 +1,10 @@
 class Prototype < ActiveRecord::Base
-  has_many :thumbnails, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :thumbnails,  dependent: :destroy
+  has_many :comments,    dependent: :destroy
+  has_many :likes,       dependent: :destroy
   belongs_to :user
 
   # tags settings
-  # acts_as_taggable
   acts_as_taggable_on :tags
   attr_accessor :tags
 
@@ -15,46 +14,8 @@ class Prototype < ActiveRecord::Base
   # validation
   validates :title, :copy, :concept, presence: true
 
-  class << self
-    def create_prototype_data(prototype, thumbnails_data)
-      if prototype.save
-        # save thumbnails for both main & sub
-        thumbnails_data.each do |k, v|
-          if k == "main"
-            prototype.thumbnails.main.create(thumbnail: v)
-          else
-            prototype.thumbnails.sub.create(thumbnail: v)
-          end
-        end
-
-        flash[:success] = "Successfully created your prototype."
-        redirect_to newest_prototypes_path
-      else
-        flash[:warning] = "Unfortunately failed to create."
-        redirect_to new_prototype_path
-      end
-    end
-
-    def update_prototype_data(prototype, prototype_data, thumbnails_data)
-      if prototype.update(prototype_data)
-        # reset thumbnails for update
-        prototype.thumbnails.each(&:destroy)
-        # save thumbnails for both main & sub
-        thumbnails_data.each do |k, v|
-          if k == "main"
-            prototype.thumbnails.main.create(thumbnail: v)
-          else
-            prototype.thumbnails.sub.create(thumbnail: v)
-          end
-        end
-
-        flash[:success] = "Successfully updated your prototype."
-        redirect_to newest_prototypes_path
-      else
-        flash[:warning] = "Unfortunately failed to update."
-        redirect_to edit_prototype_path
-      end
-    end
+  def create_thumbnails_data(thumbnails_data)
+    thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v)
   end
 
   def posted_date
@@ -80,5 +41,4 @@ class Prototype < ActiveRecord::Base
   def set_default_sub(i)
     self.sub_thumbnails[i].present? ? sub_thumbnails[i].to_s : "noimage.png"
   end
-
 end
