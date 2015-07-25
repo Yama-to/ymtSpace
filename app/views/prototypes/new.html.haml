@@ -1,36 +1,53 @@
-%form.container.proto-new{:action => ""}
-  .col-md-8.col-md-offset-2
-    %header.row.user-nav.row
-      .col-md-12
-        %input.proto-new-title{:type => "text", :placeholder => "Title"}/
-    .row
-      .col-md-12
-        .cover-image-upload
-          %input{:type => "file"}/
-      .col-md-12
-        %ul.proto-sub-list.list-group
-          %li.list-group-item.col-md-4
-            .image-upload
-              %input{:type => "file"}/
-          %li.list-group-item.col-md-4
-            .image-upload
-              %input{:type => "file"}/
-          %li.list-group-item.col-md-4
-            .image-upload-plus
-              %span +
-    .row.proto-description
-      .col-md-12
-        %input{:type => "text", :placeholder => "Catch Copy"}/
-      .col-md-12
-        %textarea{:name => "", :cols => "30", :rows => "4", :placeholder => "Concept"}
-      .col-md-12
-        %h4 Tag List
+.container.proto-new
+  = form_for @prototype do |f|
+    .col-md-8.col-md-offset-2
+      %header.row.user-nav.row
+        .col-md-12
+          %h4 Title
+          = f.text_field :title, required: true, placeholder: "Input Title", class: "proto-new-title"
+      = f.fields_for :thumbnails do |thumb_f|
         .row
-          .col-md-3
-            %input{:type => "text", :placeholder => "Web Design"}/
-          .col-md-3
-            %input{:type => "text", :placeholder => "UI"}/
-          .col-md-3
-            %input{:type => "text", :placeholder => "Application"}/
-    .row.text-center.proto-btn
-      %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Publish
+          .col-md-12.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+            %h4 Main Thumbnail
+            .fileinput-preview.thumbnail.cover-image-upload{style: "width: 100%;", data: {trigger: "fileinput"}}
+            %div
+              %span.btn.btn-file
+                = thumb_f.file_field :main, required: true
+          .col-md-12
+            %h4 Sub Thumbnails
+            %ul.proto-sub-list.list-group
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%;", data: {trigger: "fileinput"}}
+                %div
+                  %span.btn.btn-file
+                    = thumb_f.file_field :sub1
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%;", data: {trigger: "fileinput"}}
+                %div
+                  %span.btn.btn-file
+                    = thumb_f.file_field :sub2
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%;", data: {trigger: "fileinput"}}
+                %div
+                  %span.btn.btn-file
+                    = thumb_f.file_field :sub3
+      .row.proto-description
+        .col-md-12
+          %h4 Catch Copy
+          = f.text_field :copy, required: true, placeholder: "Input Catch Copy"
+        .col-md-12
+          %h4 Concept
+          = f.text_area :concept, required: true, cols: "30", rows: "4", placeholder: "Input Concept"
+        = f.fields_for :tags do |tag_f|
+          .col-md-12
+            %h4 Tag List
+            .row
+              .col-md-3
+                = tag_f.text_field :'0', reuired: true, placeholder: "ex) Web"
+              .col-md-3
+                = tag_f.text_field :'1', placeholder: "ex) Rails"
+              .col-md-3
+                = tag_f.text_field :'2', placeholder: "ex) UI/UX"
+      .row.text-center.proto-btn
+        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block"
+
