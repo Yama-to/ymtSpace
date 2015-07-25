@@ -15,6 +15,48 @@ class Prototype < ActiveRecord::Base
   # validation
   validates :title, :copy, :concept, presence: true
 
+  class << self
+    def create_prototype_data(prototype, thumbnails_data)
+      if prototype.save
+        # save thumbnails for both main & sub
+        thumbnails_data.each do |k, v|
+          if k == "main"
+            prototype.thumbnails.main.create(thumbnail: v)
+          else
+            prototype.thumbnails.sub.create(thumbnail: v)
+          end
+        end
+
+        flash[:success] = "Successfully created your prototype."
+        redirect_to newest_prototypes_path
+      else
+        flash[:warning] = "Unfortunately failed to create."
+        redirect_to new_prototype_path
+      end
+    end
+
+    def update_prototype_data(prototype, prototype_data, thumbnails_data)
+      if prototype.update(prototype_data)
+        # reset thumbnails for update
+        prototype.thumbnails.each(&:destroy)
+        # save thumbnails for both main & sub
+        thumbnails_data.each do |k, v|
+          if k == "main"
+            prototype.thumbnails.main.create(thumbnail: v)
+          else
+            prototype.thumbnails.sub.create(thumbnail: v)
+          end
+        end
+
+        flash[:success] = "Successfully updated your prototype."
+        redirect_to newest_prototypes_path
+      else
+        flash[:warning] = "Unfortunately failed to update."
+        redirect_to edit_prototype_path
+      end
+    end
+  end
+
   def posted_date
     created_at.strftime("%b %d")
   end

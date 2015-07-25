@@ -1,10 +1,11 @@
 class PrototypesController < ApplicationController
+  before_action :set_prototype, only: [:show, :edit, :update]
+
   def index
     @prototypes = Prototype.order('title ASC').page(params[:page]).per(3)
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @user = @prototype.user
     @new_comment = Comment.new
     @like = Like.find_or_init(current_user.id, params[:id])
@@ -18,26 +19,11 @@ class PrototypesController < ApplicationController
   def create
     prototype = current_user.prototypes.new(prototype_params)
     prototype.tag_list << tags_params
-    if prototype.save
-      # save thumbnails for both main & sub
-      thumbnails_params.each do |k, v|
-        if k == "main"
-          prototype.thumbnails.main.create(thumbnail: v)
-        else
-          prototype.thumbnails.sub.create(thumbnail: v)
-        end
-      end
-
-      flash[:success] = "Successfully created your prototype."
-      redirect_to newest_prototypes_path
-    else
-      flash[:warning] = "Unfortunately failed to save."
-      render :new
-    end
+    thumbnails_data = thumbnails_params
+    Prototype.create_prototype_data(prototype, thumbnails_data)
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
     @tag_names = @prototype.tag_list
     if @prototype.user_id != current_user.id
       flash[:danger] = "Access denied."
@@ -46,27 +32,10 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    binding.pry
-    prototype = Prototype.find(params[:id])
-    prototype.tag_list = tags_params
-    if prototype.update(prototype_params)
-      # reset thumbnails for update
-      prototype.thumbnails.each(&:destroy)
-      # save thumbnails for both main & sub
-      thumbnails_params.each do |k, v|
-        if k == "main"
-          prototype.thumbnails.main.create(thumbnail: v)
-        else
-          prototype.thumbnails.sub.create(thumbnail: v)
-        end
-      end
-
-      flash[:success] = "Successfully updated your prototype."
-      redirect_to newest_prototypes_path
-    else
-      flash[:warning] = "Unfortunately failed to update."
-      render :edit
-    end
+    prototype_data = prototype_params
+    thumbnails_data = thumbnails_params
+    @prototype.tag_list = tags_params
+    Prototype.update_prototype_data(@prototype, prototype_data, thumbnails_data)
   end
 
   def newest
@@ -80,6 +49,10 @@ class PrototypesController < ApplicationController
   end
 
   private
+
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
+  end
 
   def prototype_params
     params.require(:prototype).permit(:title, :copy, :concept)
