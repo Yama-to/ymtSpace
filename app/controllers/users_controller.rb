@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
+
   def show
-    @user = User.find(params[:id])
     @prototypes = @user.prototypes.page(params[:page]).per(3)
   end
 
   def edit
-    @user = User.find(params[:id])
     if @user.id != current_user.id
       flash[:danger] = "Access denied."
       redirect_to root_path
@@ -13,9 +13,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
     if user.id == current_user.id
-      user.update(update_params)
+      @user.update(update_params)
       flash[:success] = "Successfully updated your information."
       redirect_to action: :show
     else
@@ -25,6 +24,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def update_params
     params.require(:user).permit(:name, :profile, :participation, :occupation)
