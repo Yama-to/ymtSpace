@@ -15,7 +15,7 @@ class Prototype < ActiveRecord::Base
   validates :title, :copy, :concept, presence: true
 
   def create_thumbnails_data(thumbnails_data)
-    thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v)
+    thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v) }
   end
 
   def posted_date
