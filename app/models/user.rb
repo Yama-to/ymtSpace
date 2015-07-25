@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
 
   # carrierwave
   mount_uploader :avatar, ImageUploader
+
+  def count_prototypes
+    prototypes.count
+  end
 end

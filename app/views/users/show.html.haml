@@ -7,7 +7,7 @@
         %h4#top-aligned-media.media-heading
           = @user.name
           %span.label.label-default.project-number
-            = @user.prototypes.count
+            = @user.count_prototypes
             %i Projects
         .proto-user
           %span.degree
@@ -40,24 +40,3 @@
                   =link_to tag.name, tag_path(tag), class: "btn btn-default"
 .text-center
   = paginate @prototypes
-
--# // original pagination
--# %ul.pagination
--#   %li.disabled
--#     %a{"aria-label" => "Previous", :href => "#"}
--#       %span{"aria-hidden" => "true"} «
--#   %li.active
--#     %a{:href => "#"}
--#       1
--#       %span.sr-only (current)
--#   %li
--#     %a{:href => "#"} 2
--#   %li
--#     %a{:href => "#"} 3
--#   %li
--#     %a{:href => "#"} 4
--#   %li
--#     %a{:href => "#"} 5
--#   %li
--#     %a{"aria-label" => "Next", :href => "#"}
--#       %span{"aria-hidden" => "true"} »
