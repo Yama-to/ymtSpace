@@ -1,2 +1,12 @@
-%h1 Tags#index
-%p Find me in app/views/tags/index.html.haml
+= render "layouts/top"
+
+.container.proto-list
+  .row
+    - @tags.each do |tag|
+      .col-sm-4.col-md-3.proto-content
+        .thumbnail
+          = link_to (button_tag tag.name, class: "btn btn-tag"), tag_path(tag)
+          .tag-meta
+            = link_to tag_path(tag), class: "label label-default tag-list-number" do
+              = tag.prototypes_from_tag.count
+              %i Projects
