@@ -1,18 +1,39 @@
+// form_for version
 .container
-  %form.form-signin
-    %h2.form-signin-heading Please sign in
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .form-inputs
-        %label.sr-only{for: "inputEmail"}
-        = f.input :email, required: false, autofocus: true, placeholder: "Input Email", class: "form-control", input_html: {id: "inputEmail"}, label: false
-        %label.sr-only{for: "inputPassword"}
-        = f.input :password, required: false, placeholder: "Input Password", class: "form-control", input_html: {id: "inputPassword"}, label: false
-        .checkbox
-          %label
-          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-      .form-actions
-        = f.button :submit, "SIGN IN", class: "btn btn-lg btn-primary btn-block"
+  %h2.form-signin-heading Please sign in
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs.form-signin
+      %label.sr-only{for: "inputEmail"}
+      = f.email_field :email, required: true, autofocus: true, autocomplete: "off", placeholder: "Input Email", class: "form-control", id: "inputEmail"
+      %label.sr-only{for: "inputPassword"}
+      = f.password_field :password, required: true, autocomplete: "off", placeholder: "Input Password", class: "form-control", id: "inputPassword"
+      .checkbox
+        %label
+          = f.check_box :remember_me if devise_mapping.rememberable?
+          Remember me
+    .form-actions.form-signin
+      = f.submit "SIGN IN", class: "btn btn-lg btn-primary btn-block"
   .text-center
     %p
       Not a member?
       = link_to "Sign up NOW!", new_user_registration_path
+
+// simple_form_for version
+-# .container
+-#   %form.form-signin
+-#     %h2.form-signin-heading Please sign in
+-#     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+-#       .form-inputs
+-#         %label.sr-only{for: "inputEmail"}
+-#         = f.input :email, required: false, autofocus: true, placeholder: "Input Email", class: "form-control", input_html: {id: "inputEmail"}, label: false
+-#         %label.sr-only{for: "inputPassword"}
+-#         = f.input :password, required: false, placeholder: "Input Password", class: "form-control", input_html: {id: "inputPassword"}, label: false
+-#         .checkbox
+-#           %label
+-#           = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+-#       .form-actions
+-#         = f.button :submit, "SIGN IN", class: "btn btn-lg btn-primary btn-block"
+-#   .text-center
+-#     %p
+-#       Not a member?
+-#       = link_to "Sign up NOW!", new_user_registration_path
