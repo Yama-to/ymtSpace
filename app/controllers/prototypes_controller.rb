@@ -6,7 +6,6 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    @user = @prototype.user
     @new_comment = Comment.new
     @like = Like.find_or_init(current_user.id, params[:id])
   end

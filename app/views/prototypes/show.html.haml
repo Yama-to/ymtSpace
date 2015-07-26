@@ -3,7 +3,7 @@
     .col-md-6
       .media
         .media-left
-          = link_to (image_tag @user.avatar, alt: "64x64", src: "@user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@user)
+          = link_to (image_tag @prototype.user.avatar, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
         .media-body
           %h4#top-aligned-media.media-heading
             = @prototype.title
@@ -11,9 +11,9 @@
               = link_to "edit", edit_prototype_path(@prototype), class: "btn btn-xs navbar-inverse btn-edit"
           .proto-user
             by
-            = link_to @user.name, user_path(@user)
+            = link_to @prototype.user.name, user_path(@prototype.user)
             %p.degree
-              = "#{@user.participation} ／ #{@user.occupation}"
+              = "#{@prototype.user.participation} ／ #{@prototype.user.occupation}"
     .col-md-6.text-right
       = form_for @like do |f|
         = f.hidden_field :user_id, value: current_user.id
@@ -59,7 +59,7 @@
       - @prototype.comments.each do |comment|
         .media
           .media-left
-            = link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user)
+            = link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user)
           .media-body
             %h4#top-aligned-media.media-heading
               = comment.user.name
