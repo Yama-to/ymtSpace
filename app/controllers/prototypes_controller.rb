@@ -39,8 +39,7 @@ class PrototypesController < ApplicationController
   def update
     @prototype.tag_list = tags_params
     if prototype.update(prototype_params)
-      prototype.thumbnails.each(&:destroy)
-      prototype.create_thumbnails_data(thumbnails_params)
+      prototype.update_thumbnails_data(thumbnails_params)
       flash[:success] = "Successfully updated your prototype."
       redirect_to newest_prototypes_path
     else

@@ -18,6 +18,11 @@ class Prototype < ActiveRecord::Base
     thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v) }
   end
 
+  def update_thumbnails_data(thumbnails_data)
+    thumbnails.each(&:destroy)
+    create_thumbnails_data(thumbnails_data)
+  end
+
   def posted_date
     created_at.strftime("%b %d")
   end
