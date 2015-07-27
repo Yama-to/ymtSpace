@@ -1,2 +1,50 @@
-%h1 Prototypes#edit
-%p Find me in app/views/prototypes/edit.html.haml
+.container.proto-new
+  = form_for @prototype do |f|
+    .col-md-8.col-md-offset-2
+      %header.row.user-nav.row
+        .col-md-12
+          %h4 Title
+          = f.text_field :title, placeholder: "Input Title", class: "proto-new-title"
+      = f.fields_for :thumbnails, @prototype.thumbnails.build do |thumb_f|
+        .row
+          .col-md-12.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+            %h4 Main Thumbnail
+            .fileinput-preview.thumbnail.cover-image-upload{style: "width: 100%; background: image-url(#{@prototype.main_thumbnail});", data: {trigger: "fileinput"}}
+            %div
+              %span.btn.btn-file
+                = thumb_f.file_field :main, value: @prototype.main_thumbnail
+          .col-md-12
+            %h4 Sub Thumbnails
+            %ul.proto-sub-list.list-group
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%; background: image-url(#{@prototype.set_default_sub(0)});", data: {trigger: "fileinput"}}
+                %span.btn.btn-file
+                  = thumb_f.file_field :sub1, value: @prototype.set_default_sub(0)
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%; background: image-url(#{@prototype.set_default_sub(1)});", data: {trigger: "fileinput"}}
+                %span.btn.btn-file
+                  = thumb_f.file_field :sub2, value: @prototype.set_default_sub(1)
+              %li.list-group-item.col-md-4.fileinput.fileinput-new{style: "width: 100%;", data: {provides: "fileinput"}}
+                .fileinput-preview.image-upload.thumbnail{style: "width: 100%; background: image-url(#{@prototype.set_default_sub(2)});", data: {trigger: "fileinput"}}
+                %span.btn.btn-file
+                  = thumb_f.file_field :sub3, value: @prototype.set_default_sub(2)
+      .row.proto-description
+        .col-md-12
+          %h4 Catch Copy
+          = f.text_field :copy, placeholder: "Input Catch Copy"
+        .col-md-12
+          %h4 Concept
+          = f.text_area :concept, cols: "30", rows: "4", placeholder: "Input Concept"
+        = f.fields_for :tags do |tag_f|
+          .col-md-12
+            %h4 Tag List
+            .row
+              .col-md-3
+                = tag_f.text_field :'0', placeholder: "ex) Web", value: @tag_names[0] if @tag_names[0].present?
+              .col-md-3
+                = tag_f.text_field :'1', placeholder: "ex) Rails", value: @tag_names[1] if @tag_names[0].present?
+              .col-md-3
+                = tag_f.text_field :'2', placeholder: "ex) UI/UX", value: @tag_names[2] if @tag_names[0].present?
+      .row.text-center.proto-btn
+        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block"
+

@@ -3,87 +3,75 @@
     .col-md-6
       .media
         .media-left
-          %a{:href => "#"}
-            %img.media-object{:alt => "64x64", "data-holder-rendered" => "true", "data-src" => "holder.js/64x64", :src => "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==", :style => "width: 64px; height: 64px;"}/
+          = link_to (image_tag @prototype.user.avatar, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
         .media-body
           %h4#top-aligned-media.media-heading
-            Top aligned media
+            = @prototype.title
+            - if @prototype.user_id == current_user.id
+              = link_to "edit", edit_prototype_path(@prototype), class: "btn btn-xs navbar-inverse btn-edit"
           .proto-user
-            %a{:href => ""} by User
-            %span.degree we-b inc. Designer
-
+            by
+            = link_to @prototype.user.name, user_path(@prototype.user)
+            %p.degree
+              = "#{@prototype.user.participation} ／ #{@prototype.user.occupation}"
     .col-md-6.text-right
-      %button.btn.btn-default
-        = image_tag("icon_heart.svg")
-        Like
-        %span.num 20
+      = form_for @like do |f|
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :prototype_id, value: @prototype.id
+        %button.btn.btn-default.btn-like
+          - if @prototype.liked?(current_user)
+            = image_tag "icon_heart_red.svg"
+          - else
+            = image_tag "icon_heart.svg"
+          Like
+          %span.num
+            = @prototype.likes_count
   .row
     .col-md-9
-      = image_tag("sample.png", :class => 'img-responsive')
+      = image_tag @prototype.main_thumbnail, class: "img-responsive"
     .col-md-3
       %ul.proto-sub-list.list-group
-        %li.list-group-item
-          = image_tag("sample.png", :class => 'img-responsive')
-        %li.list-group-item
-          = image_tag("sample.png", :class => 'img-responsive')
-        %li.list-group-item
-          = image_tag("sample.png", :class => 'img-responsive')
+        - @prototype.sub_thumbnails.each do |thumb|
+          %li.list-group-item
+            = image_tag thumb, class: "img-responsive"
   .row.proto-description
     .col-md-3
       %h4 Catch Copy
-      %p Type something
+      %p
+        = @prototype.copy
     .col-md-6
       %h4 Concept
-      %p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis
-    .col-md-3
-      %h4 Tag List
-      %ul.proto-tag-list.list-inline
-        %li
-          %a{:href => "#", :class => "btn btn-default"} iPad
-        %li
-          %a{:href => "#", :class => "btn btn-default"} wireframe
+      %p
+        = @prototype.concept
+    - unless @prototype.get_tags.blank?
+      .col-md-3
+        %h4 Tag List
+        %ul.proto-tag-list.list-inline
+          - @prototype.get_tags.each do |tag|
+            %li
+              = link_to tag, tag_path(tag), class: "btn btn-default"
   .row.proto-comments
     %h4.col-md-12
       Comments
-      %span.num (10)
+      %span.num
+        = " (#{@prototype.comments.count}) "
     .col-md-8
-      .media
-        .media-left
-          %a{:href => "#"}
-            %img.media-object{:alt => "64x64", "data-holder-rendered" => "true", "data-src" => "holder.js/64x64", :src => "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==", :style => "width: 64px; height: 64px;"}/
-        .media-body
-          %h4#top-aligned-media.media-heading
-            Top aligned media
-            %a.anchorjs-link{:href => "#top-aligned-media"}
-              %span.anchorjs-icon
-          %p Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-          %p Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      .media
-        .media-left.media-middle
-          %a{:href => "#"}
-            %img.media-object{:alt => "64x64", "data-holder-rendered" => "true", "data-src" => "holder.js/64x64", :src => "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==", :style => "width: 64px; height: 64px;"}/
-        .media-body
-          %h4#middle-aligned-media.media-heading
-            Middle aligned media
-            %a.anchorjs-link{:href => "#middle-aligned-media"}
-              %span.anchorjs-icon
-          %p Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-          %p Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      .media
-        .media-left.media-bottom
-          %a{:href => "#"}
-            %img.media-object{:alt => "64x64", "data-holder-rendered" => "true", "data-src" => "holder.js/64x64", :src => "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjQ2MDkzNzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg==", :style => "width: 64px; height: 64px;"}/
-        .media-body
-          %h4#bottom-aligned-media.media-heading
-            Bottom aligned media
-            %a.anchorjs-link{:href => "#bottom-aligned-media"}
-              %span.anchorjs-icon
-          %p Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-          %p Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      %form.form-inline{:role => "form"}
-        %h4 Write a comment
-        .row
-          .form-group.col-md-10
-            %textarea.form-control{:placeholder => "Your comments", :rows => "3"}
-          .form-group.col-md-2
-            %button.btn.btn-primary Comment
+      - @prototype.comments.each do |comment|
+        .media
+          .media-left
+            = link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user)
+          .media-body
+            %h4#top-aligned-media.media-heading
+              = comment.user.name
+            %p
+              = comment.text
+      .form-inlign{role: "form"}
+        = form_for @new_comment do |f|
+          %h4 Write a comment
+          .row
+            .form-group.col-md-10
+              = f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control"
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :prototype_id, value: @prototype.id
+            .form-group.col-md-2
+              = f.submit :comment, class: "btn btn-primary"
