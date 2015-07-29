@@ -5,5 +5,5 @@ class Thumbnail < ActiveRecord::Base
   enum role: [:main, :sub]
 
   # carrierwave
-  mount_uploader :thumbnail, ThumbnailUploader
+  mount_uploader :thumbnail, ImageUploader
 end
