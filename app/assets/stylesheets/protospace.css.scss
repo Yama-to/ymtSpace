@@ -20,7 +20,7 @@ body {
 
 /* -- Main style ------------------------------------ */
 .btn {
-  font-family: "Lato", 'Helvetica Neue, Helvetica, Arial', sans-serif; 
+  font-family: "Lato", 'Helvetica Neue, Helvetica, Arial', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.1;
@@ -125,6 +125,18 @@ body {
 }
 
 
+/*-- Button custom styles --------------------------------- */
+.btn-like {
+  width: 100px;
+}
+
+.btn-index {
+  margin-right: 5px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+
 /*-- Button groups --------------------------------- */
 .btn-group .btn {
   border-radius: 2px;
@@ -148,6 +160,7 @@ body {
  .btn-group>.btn:focus:hover, .btn-group-vertical>.btn:focus:hover, .btn-group>.btn:active:hover, .btn-group-vertical>.btn:active:hover, .btn-group>.btn.active:hover, .btn-group-vertical>.btn.active:hover {
   z-index: 2;
 }
+
 
 
 
@@ -275,7 +288,7 @@ body {
   background-position:  center 92px;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size:  100% auto;
+  background-size: auto 60%;
   padding: 80px 0;
   margin-bottom: 0;
 }
@@ -290,7 +303,7 @@ body {
 
 .proto-content {
   .thumbnail {
-    border-radius: 0;
+    border-radius: 2px;
     padding: 0;
   }
 
@@ -302,7 +315,7 @@ body {
   .proto-meta {
     overflow: hidden;
     font-size: 1.2rem;
-    padding: 10px 0;
+    padding: 10px;
 
     .proto-user {
       float: left;
@@ -326,7 +339,10 @@ body {
     padding: 50px 0;
 
     .media-object {
+      border: 2px solid #ddd;
       border-radius: 50%;
+      background-color: #fff;
+      background-size: cover;
     }
 
     button {
@@ -369,7 +385,10 @@ body {
     padding: 50px 0;
 
     .media-object {
+      border: 2px solid #ddd;
       border-radius: 50%;
+      background-color: #fff;
+      background-size: cover;
     }
 
     button {
@@ -435,6 +454,8 @@ body {
   .list-group-item {
     border: 0;
     margin-bottom: 20px;
+    border: 1px solid #ddd;
+
 
     .image-upload {
       background: image-url("noimage.png") #fff no-repeat center center;
@@ -467,6 +488,7 @@ body {
       }
     }
   }
+
   .proto-btn {
     max-width: 300px;
     margin: auto;
@@ -515,6 +537,9 @@ body {
     position: relative;
     background-color: #fff;
     background-size: cover;
+    margin: 0 0 15px 15px;
+    padding-top: 0;
+    padding-left: 0;
 
     button {
       font-size: 9px;
@@ -542,7 +567,14 @@ body {
       opacity: 0;
       filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
     }
+
+    img {
+      max-width: 72px;
+      max-height: 72px;
+      border-radius: 50%;
+    }
   }
+
   .user-btn {
     max-width: 300px;
     margin: auto;
@@ -571,6 +603,7 @@ body {
     box-sizing: border-box;
     padding: 10px;
     font-size: 16px;
+
     &:focus {
       z-index: 2;
     }
@@ -593,4 +626,57 @@ body {
       box-shadow: 0 1px 1px #eee;
     }
   }
+}
+
+/* -- Added styles -------------------------------- */
+.thumbnail .btn-tag {
+  width: 100%;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #eee;
+  font-family: Lato, 'Helvetica Neue', 'Helvetica, Arial', sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #999;
+  padding: 5px 5px 3px;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.tag-list-number {
+  display: block;
+  font-size: 1.3rem;
+  border-radius: 2px;
+  margin: 0 -2px 2px;
+}
+
+.btn-edit {
+  margin: 0 10px 2px;
+}
+
+.proto-new .fileinput {
+  width: 100%;
+}
+
+.thumbnail .cover-image-upload {
+  width: 100%;
+}
+
+.list-group-item > .thumbnail {
+  border: none;
+}
+
+.thumbnail > img {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.project-number {
+  margin: 10px;
+}
+
+.btn-taglist {
+  min-width: 110px;
 }
