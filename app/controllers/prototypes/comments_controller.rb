@@ -2,11 +2,9 @@ class Prototypes::CommentsController < ApplicationController
   def create
     comment = Comment.new(comment_params)
     if comment.save
-      flash[:success] = "Successfully created a comment."
-      redirect_to prototype_path(comment_params[:prototype_id])
+      redirect_to prototype_path(comment_params[:prototype_id]), success: "Successfully created a comment."
     else
-      flash[:warning] = "Unfortunately failed to save a comment."
-      redirect_to :back
+      redirect_to :back, warning: "Unfortunately failed to save a comment."
     end
   end
 
