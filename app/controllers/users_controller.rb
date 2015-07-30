@@ -10,11 +10,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if user.id == current_user.id
+    if @user.id == current_user.id
       @user.update(update_params)
-      redirect_to :show, success: "Successfully updated your information."
+      redirect_to user_path(@user), success: "Successfully updated your information."
     else
-      redirect_to :edit, danger: "Bad access."
+      redirect_to edit_user_path(@user), danger: "Bad access."
     end
   end
 
@@ -25,6 +25,6 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user).permit(:name, :profile, :participation, :occupation)
+    params.require(:user).permit(:name, :profile, :participation, :occupation, :avatar)
   end
 end

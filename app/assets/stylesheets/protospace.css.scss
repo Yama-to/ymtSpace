@@ -391,6 +391,11 @@ body {
       background-size: cover;
     }
 
+    img {
+      width: 64px;
+      height: 64px;
+    }
+
     button {
       padding-right: 35px;
 
@@ -569,8 +574,8 @@ body {
     }
 
     img {
-      max-width: 72px;
-      max-height: 72px;
+      width: 71px;
+      height: 71px;
       border-radius: 50%;
     }
   }

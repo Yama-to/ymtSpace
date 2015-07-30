@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   # carrierwave
   mount_uploader :avatar, ImageUploader
 
+  def set_default_avatar
+    avatar_url(:thumb) || "noimage.png"
+  end
+
   def count_prototypes
     prototypes.count
   end
