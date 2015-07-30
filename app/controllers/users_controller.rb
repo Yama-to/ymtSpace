@@ -6,20 +6,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user.id != current_user.id
-      flash[:danger] = "Access denied."
-      redirect_to root_path
-    end
+    redirect_to root_path, danger: "Access denied." if @user.id != current_user.id
   end
 
   def update
-    if user.id == current_user.id
+    if @user.id == current_user.id
       @user.update(update_params)
-      flash[:success] = "Successfully updated your information."
-      redirect_to action: :show
+      redirect_to user_path(@user), success: "Successfully updated your information."
     else
-      flash[:danger] = "Bad access."
-      redirect_to action: :edit
+      redirect_to edit_user_path(@user), danger: "Bad access."
     end
   end
 
@@ -30,6 +25,6 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user).permit(:name, :profile, :participation, :occupation)
+    params.require(:user).permit(:name, :profile, :participation, :occupation, :avatar)
   end
 end

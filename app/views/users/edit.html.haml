@@ -12,7 +12,7 @@
                 .fileinput-preview{data: {trigger: "fileinput"}}
                 %div
                   %span.btn.btn-xs
-                    = f.file_field :avatar
+                    = f.file_field :avatar, value: @user.set_default_avatar
           .col-md-12
             %h4 Profile
             .user-user-profile.row

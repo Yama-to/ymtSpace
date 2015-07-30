@@ -1,5 +1,6 @@
 class PrototypesController < ApplicationController
-  before_action :set_prototype, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:show]
+  before_action :set_prototype,      only: [:show, :edit, :update]
 
   def index
     @prototypes = Prototype.order('title ASC').page(params[:page]).per(3)
@@ -20,31 +21,24 @@ class PrototypesController < ApplicationController
     prototype.tag_list << tags_params
     if prototype.save
       prototype.create_thumbnails_data(thumbnails_params)
-      flash[:success] = "Successfully created your prototype."
-      redirect_to newest_prototypes_path
+      redirect_to newest_prototypes_path, success: "Successfully created your prototype."
     else
-      flash[:warning] = "Unfortunately failed to create."
-      redirect_to new_prototype_path
+      redirect_to new_prototype_path, warning: "Unfortunately failed to create."
     end
   end
 
   def edit
     @tag_names = @prototype.tag_list
-    if @prototype.user_id != current_user.id
-      flash[:danger] = "Access denied."
-      redirect_to root_path
-    end
+    redirect_to root_path, danger: "Access denied." if @prototype.user_id != current_user.id
   end
 
   def update
     @prototype.tag_list = tags_params
     if prototype.update(prototype_params)
       prototype.update_thumbnails_data(thumbnails_params)
-      flash[:success] = "Successfully updated your prototype."
-      redirect_to newest_prototypes_path
+      redirect_to newest_prototypes_path, success: "Successfully updated your prototype."
     else
-      flash[:warning] = "Unfortunately failed to update."
-      redirect_to edit_prototype_path
+      redirect_to edit_prototype_path, warning: "Unfortunately failed to update."
     end
   end
 
