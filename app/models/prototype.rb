@@ -46,4 +46,16 @@ class Prototype < ActiveRecord::Base
   def set_default_sub(i)
     self.sub_thumbnails[i].present? ? sub_thumbnails[i].to_s : "noimage.png"
   end
+
+  def set_user_info
+    if user.participation.present? && user.occupation.present?
+      "#{user.participation} ／ #{user.occupation}"
+    elsif user.participation.present? && user.occupation.blank?
+      "#{user.participation}"
+    elsif user.participation.blank? && user.occupation.present?
+      "#{user.occupation}"
+    else
+      "- No data -"
+    end
+  end
 end

@@ -13,7 +13,7 @@
             by
             = link_to @prototype.user.name, user_path(@prototype.user)
             %p.degree
-              = "#{@prototype.user.participation} ／ #{@prototype.user.occupation}"
+              = @prototype.set_user_info
     .col-md-6.text-right
       = form_for @like do |f|
         = f.hidden_field :user_id, value: current_user.id
@@ -26,7 +26,7 @@
           Like
           %span.num
             = @prototype.likes_count
-  .row
+  .row.proto-edit
     .col-md-9
       = image_tag @prototype.main_thumbnail, class: "img-responsive"
     .col-md-3
@@ -46,7 +46,7 @@
     - unless @prototype.get_tags.blank?
       .col-md-3
         %h4 Tag List
-        %ul.proto-tag-list.list-inline
+        %ul.list-inline
           - @prototype.get_tags.each do |tag|
             %li
               = link_to tag, tag_path(tag), class: "btn btn-default"
