@@ -34,7 +34,7 @@
             .proto-meta
               .proto-date
                 = proto.posted_date
-            %ul.proto-tag-list.list-inline
+            %ul.list-inline
               - proto.get_tags.each do |tag|
                 %li
                   =link_to tag.name, tag_path(tag), class: "btn btn-default"
