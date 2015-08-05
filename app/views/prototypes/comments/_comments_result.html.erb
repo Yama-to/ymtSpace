@@ -1,0 +1,26 @@
+<% @prototype.comments.each do |comment| %>
+  <div class="media">
+    <div class="media-left">
+      <%= link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user) %>
+    </div>
+    <div class="media-body">
+      <h4 id="top-aligned-media" class="media-heading"><%= comment.user.name %></h4>
+      <p><%= comment.text %></p>
+    </div>
+  </div>
+<% end %>
+<div class="form-inlign" role="form">
+  <%= form_for @new_comment, remote: true do |f| %>
+    <h4>Write a comment</h4>
+    <div class="row">
+      <div class="form-group col-md-10">
+        <%= f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control" %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :prototype_id, value: @prototype.id %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= f.submit :comment, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

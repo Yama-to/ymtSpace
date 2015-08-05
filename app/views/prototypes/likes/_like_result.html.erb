@@ -1,0 +1,8 @@
+<% if @prototype.liked?(current_user) %>
+  <%= image_tag "icon_heart_red.svg" %>
+<% else %>
+  <%= image_tag "icon_heart.svg" %>
+<% end %>
+Like
+<span class="num">
+  <%= @prototype.likes_count %>

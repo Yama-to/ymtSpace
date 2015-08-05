@@ -15,10 +15,10 @@
             %p.degree
               = @prototype.set_user_info
     .col-md-6.text-right
-      = form_for @like do |f|
+      = form_for @like, url: like_path, method: :patch, remote: true do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :prototype_id, value: @prototype.id
-        %button.btn.btn-default.btn-like
+        %button#like.btn.btn-default.btn-like
           - if @prototype.liked?(current_user)
             = image_tag "icon_heart_red.svg"
           - else
@@ -55,7 +55,7 @@
       Comments
       %span.num
         = " (#{@prototype.comments.count}) "
-    .col-md-8
+    #comments.col-md-8
       - @prototype.comments.each do |comment|
         .media
           .media-left
@@ -66,7 +66,7 @@
             %p
               = comment.text
       .form-inlign{role: "form"}
-        = form_for @new_comment do |f|
+        = form_for @new_comment, remote: true do |f|
           %h4 Write a comment
           .row
             .form-group.col-md-10
