@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # carrierwave
-  mount_uploader :avatar, ImageUploader
+  mount_uploader :avatar, AvatarUploader
 
   def set_default_avatar
     avatar_url(:thumb) || "noimage.png"
