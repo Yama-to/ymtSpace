@@ -3,7 +3,6 @@ class Prototypes::CommentsController < ApplicationController
     comment = Comment.new(comment_params)
     if comment.save
       @prototype = Prototype.find(comment_params[:prototype_id])
-      @new_comment = Comment.new
       # redirect_to prototype_path(comment_params[:prototype_id]), success: "Successfully created a comment."
     else
       # redirect_to :back, warning: "Unfortunately failed to save a comment."
