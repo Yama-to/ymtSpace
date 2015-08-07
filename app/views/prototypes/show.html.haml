@@ -3,7 +3,7 @@
     .col-md-6
       .media
         .media-left
-          = link_to (image_tag @prototype.user.avatar, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
+          = link_to (image_tag @prototype.user_avatar, alt: "64x64", src: "@prototype.user_avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
         .media-body
           %h4#top-aligned-media.media-heading
             = @prototype.title

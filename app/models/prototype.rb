@@ -39,6 +39,10 @@ class Prototype < ActiveRecord::Base
     likes.exists?(user_id: user.id)
   end
 
+  def user_avatar
+    user.avatar_url(:thumb)
+  end
+
   def get_tags
     Tag.where(name: tag_list)
   end
