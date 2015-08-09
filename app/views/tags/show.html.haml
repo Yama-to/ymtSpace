@@ -11,22 +11,6 @@
             %i Projects
 .container.proto-list
   .row
-    - @prototypes.each do |proto|
-      .col-sm-4.col-md-3.proto-content
-        .thumbnail
-          = link_to (image_tag proto.main_thumbnail), prototype_path(proto)
-          .caption
-            %h3
-              = link_to proto.title, prototype_path(proto)
-          .proto-meta
-            .proto-user
-              by
-              = link_to " #{proto.user_name}", user_path(proto.user)
-            .proto-posted
-              = proto.posted_date
-          %ul.proto-tag-list.list-inline
-            - proto.get_tags.each do |tag|
-              %li
-                = link_to tag.name, tag_path(tag), class: "btn btn-default"
+    = render @prototypes
 .text-center
   = paginate @prototypes
