@@ -12,7 +12,7 @@
           = f.check_box :remember_me if devise_mapping.rememberable?
           Remember me
     .form-actions.form-signin
-      = f.submit "SIGN IN", class: "btn btn-lg btn-primary btn-block"
+      = f.submit "SIGN IN", class: "btn btn-lg btn-primary btn-block", data: {disable_with: "WAIT..."}
   .text-center
     %p
       Not a member?

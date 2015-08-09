@@ -43,11 +43,11 @@
             %h4 Tag List
             .row
               .col-md-3
-                = tag_f.text_field :'0', reuired: true, placeholder: "ex) Web"
+                = tag_f.text_field :'0', required: true, placeholder: "ex) Web"
               .col-md-3
                 = tag_f.text_field :'1', placeholder: "ex) Rails"
               .col-md-3
                 = tag_f.text_field :'2', placeholder: "ex) UI/UX"
       .row.text-center.proto-btn
-        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block"
+        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block", data: {disable_with: "WAIT..."}
 

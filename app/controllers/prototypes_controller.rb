@@ -28,14 +28,13 @@ class PrototypesController < ApplicationController
   end
 
   def edit
-    @tag_names = @prototype.tag_list
     redirect_to root_path, danger: "Access denied." if @prototype.user_id != current_user.id
   end
 
   def update
     @prototype.tag_list = tags_params
-    if prototype.update(prototype_params)
-      prototype.update_thumbnails_data(thumbnails_params)
+    if @prototype.update(prototype_params)
+      @prototype.update_thumbnails_data(thumbnails_params)
       redirect_to newest_prototypes_path, success: "Successfully updated your prototype."
     else
       redirect_to edit_prototype_path, warning: "Unfortunately failed to update."

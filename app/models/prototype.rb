@@ -57,6 +57,10 @@ class Prototype < ActiveRecord::Base
     Tag.where(name: tag_list)
   end
 
+  def set_tag_value(i)
+    get_tags[i] || ""
+  end
+
   def comments_of_users
     comments.includes(:user)
   end

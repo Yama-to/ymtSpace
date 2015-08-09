@@ -292,6 +292,8 @@ body {
 }
 
 .proto-content {
+  // width: 250px;
+
   .thumbnail {
     border-radius: 2px;
     padding: 0;
@@ -650,6 +652,11 @@ body {
   }
 }
 
+
+/* -- Masonry styles -------------------------------- */
+#masonry-container {
+  padding: 0;
+}
 
 /* -- Added styles -------------------------------- */
 .thumbnail .btn-tag {
