@@ -40,11 +40,11 @@
             %h4 Tag List
             .row
               .col-md-3
-                = tag_f.text_field :'0', placeholder: "ex) Web", value: @tag_names[0] if @tag_names[0].present?
+                = tag_f.text_field :'0', placeholder: "ex) Web", value: @prototype.set_tag_value(0)
               .col-md-3
-                = tag_f.text_field :'1', placeholder: "ex) Rails", value: @tag_names[1] if @tag_names[0].present?
+                = tag_f.text_field :'1', placeholder: "ex) Rails", value: @prototype.set_tag_value(1)
               .col-md-3
-                = tag_f.text_field :'2', placeholder: "ex) UI/UX", value: @tag_names[2] if @tag_names[0].present?
+                = tag_f.text_field :'2', placeholder: "ex) UI/UX", value: @prototype.set_tag_value(2)
       .row.text-center.proto-btn
-        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block"
+        = f.submit "PUBLISH", class: "btn btn-lg btn-primary btn-block", data: {disable_with: "WAIT..."}
 
