@@ -3,7 +3,7 @@ class PrototypesController < ApplicationController
   before_action :set_prototype,      only: [:show, :edit, :update]
 
   def index
-    @prototypes = Prototype.order('title ASC').page(params[:page]).per(3)
+    @prototypes = Prototype.prototype_pager(col: 'title', order: 'ASC', page_num: params[:page])
   end
 
   def show

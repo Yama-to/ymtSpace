@@ -1,6 +1,6 @@
 class Prototypes::NewestController < ApplicationController
   def index
-    @prototypes = Prototype.order('created_at DESC').page(params[:page]).per(3)
+    @prototypes = Prototype.prototype_pager(col: 'created_at', order: 'DESC', page_num: params[:page])
     render "prototypes/index"
   end
 end
