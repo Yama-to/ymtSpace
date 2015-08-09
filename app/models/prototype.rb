@@ -14,7 +14,7 @@ class Prototype < ActiveRecord::Base
   # validation
   validates :title, :copy, :concept, presence: true
 
-  scope :prototype_pager, ->(col: 'id', order: 'DESC', page_num: 0){ order("#{col} #{order}").page(page_num).per(3).includes(:user) }
+  scope :prototype_pager, ->(col: 'id', order: 'DESC', page_num: 0){ order("#{col} #{order}").page(page_num).per(12).includes(:user) }
 
   def create_thumbnails_data(thumbnails_data)
     thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v) }

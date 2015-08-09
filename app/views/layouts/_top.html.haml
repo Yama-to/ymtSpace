@@ -5,8 +5,8 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-10
-        %li.btn-index.btn-success{role: "presentation"}
-          = link_to "Popular PROTO", popular_prototypes_path
-        %li.btn-index.btn-info{role: "presentation"}
-          = link_to "Newest PROTO", newest_prototypes_path
+        %li{role: "presentation"}
+          = link_to "Popular PROTO", popular_prototypes_path, class: "btn-index btn-success"
+        %li{role: "presentation"}
+          = link_to "Newest PROTO", newest_prototypes_path, class: "btn-index btn-info"
       = link_to "VIEW TAGS", tags_path, class: "btn btn-default btn-taglist col-lg-2"
