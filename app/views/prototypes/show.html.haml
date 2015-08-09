@@ -11,7 +11,7 @@
               = link_to "edit", edit_prototype_path(@prototype), class: "btn btn-xs navbar-inverse btn-edit"
           .proto-user
             by
-            = link_to @prototype.user.name, user_path(@prototype.user)
+            = link_to @prototype.user_name, user_path(@prototype.user)
             %p.degree
               = @prototype.set_user_info
     .col-md-6.text-right
@@ -54,10 +54,10 @@
     %h4.col-md-12
       Comments
       %span#comments_count.num
-        = " (#{@prototype.comments.count}) "
+        = " (#{@prototype.comments_count}) "
     .col-md-8
       #comments
-        = render partial: 'prototypes/comment', collection: @prototype.comments
+        = render partial: 'prototypes/comment', collection: @prototype.comments_of_users
       .form-inlign{role: "form"}
         = form_for @new_comment, remote: true do |f|
           %h4 Write a comment
