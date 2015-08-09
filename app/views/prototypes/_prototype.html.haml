@@ -1,0 +1,18 @@
+.col-sm-4.col-md-3.proto-content
+  .thumbnail
+    = link_to (image_tag prototype.main_thumbnail), prototype_path(prototype)
+    .caption
+      %h3
+        = link_to prototype.title, prototype_path(prototype)
+    .proto-meta
+      - unless controller.controller_name == 'users'
+        .proto-user
+          by
+          = link_to " #{prototype.user_name}", user_path(prototype.user)
+      .proto-posted
+        = prototype.posted_date
+    %ul.proto-tag-list.list-inline
+      - unless prototype.get_tags.blank?
+        - prototype.get_tags.each do |tag|
+          %li
+            = link_to tag.name, tag_path(tag), class: "btn btn-default"
