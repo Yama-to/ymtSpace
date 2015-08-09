@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   # standard routings
-  resources  :users,       only: [:show, :edit, :update]
-  resources  :tags,        only: [:index, :show]
+  resources  :users,       only:   [:show, :edit, :update]
+  resources  :tags,        only:   [:index, :show]
   resources  :prototypes,  except: [:destroy]
 
   # add prefix to controllers
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :newest,     only: [:index], as: :newest_prototypes
     resources :popular,    only: [:index], as: :popular_prototypes
     resources :comments,   only: [:create]
-    resources :likes,      only: [:create, :update]
+    resources :likes,      only: [:update]
   end
 
   # root_path must be placed on the bottom of routes

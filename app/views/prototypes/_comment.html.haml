@@ -1,0 +1,8 @@
+.media
+  .media-left
+    = link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@prototype.user_avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user)
+  .media-body
+    %h4#top-aligned-media.media-heading
+      = comment.user.name
+    %p
+      = comment.text

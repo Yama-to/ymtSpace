@@ -3,7 +3,7 @@
     .col-md-6
       .media
         .media-left
-          = link_to (image_tag @prototype.user.avatar, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
+          = link_to (image_tag @prototype.user_avatar, alt: "64x64", src: "@prototype.user_avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(@prototype.user)
         .media-body
           %h4#top-aligned-media.media-heading
             = @prototype.title
@@ -15,10 +15,10 @@
             %p.degree
               = @prototype.set_user_info
     .col-md-6.text-right
-      = form_for @like do |f|
+      = form_for @like, url: like_path, method: :patch, remote: true do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :prototype_id, value: @prototype.id
-        %button.btn.btn-default.btn-like
+        %button#like.btn.btn-default.btn-like
           - if @prototype.liked?(current_user)
             = image_tag "icon_heart_red.svg"
           - else
@@ -53,24 +53,17 @@
   .row.proto-comments
     %h4.col-md-12
       Comments
-      %span.num
+      %span#comments_count.num
         = " (#{@prototype.comments.count}) "
     .col-md-8
-      - @prototype.comments.each do |comment|
-        .media
-          .media-left
-            = link_to (image_tag comment.avatar_thumbnail, alt: "64x64", src: "@prototype.user.avatar", style: "width: 64px; height: 64px;", data: {src: "holder.js/64x64", holder: {rendered: "true"}}, class: "media-object"), user_path(comment.user)
-          .media-body
-            %h4#top-aligned-media.media-heading
-              = comment.user.name
-            %p
-              = comment.text
+      #comments
+        = render partial: 'prototypes/comment', collection: @prototype.comments
       .form-inlign{role: "form"}
-        = form_for @new_comment do |f|
+        = form_for @new_comment, remote: true do |f|
           %h4 Write a comment
           .row
             .form-group.col-md-10
-              = f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control"
+              = f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control", id: "comment_field"
               = f.hidden_field :user_id, value: current_user.id
               = f.hidden_field :prototype_id, value: @prototype.id
             .form-group.col-md-2
