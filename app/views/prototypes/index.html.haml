@@ -1,7 +1,8 @@
 = render "layouts/top"
 
-.container.proto-list
+-# #masonry-container.container.proto-list
+#masonry-container.container.proto-list
   .row
-    = render @prototypes
+    = render partial: 'prototypes/prototype', collection: @prototypes
 .text-center
   = paginate @prototypes

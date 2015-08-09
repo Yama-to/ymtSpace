@@ -9,7 +9,7 @@
           = link_to tag_path(@tag), class: "label label-default tag-list-number" do
             = @tag.prototypes_from_tag.count
             %i Projects
-.container.proto-list
+#masonry-container.container.proto-list
   .row
     = render @prototypes
 .text-center
