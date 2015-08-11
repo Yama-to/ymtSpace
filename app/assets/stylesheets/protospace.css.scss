@@ -274,7 +274,7 @@ body {
 }
 
 .jumbotron {
-  background-image: image-url("header_bg.png");
+  background-image: asset-url("header_bg.png");
   background-position:  center 92px;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -436,7 +436,7 @@ body {
   }
 
   .cover-image-upload {
-    background: image-url("noimage-big.png") #fff no-repeat center center;
+    background: asset-url("noimage-big.png") #fff no-repeat center center;
     height: 500px;
     position: relative;
     margin-bottom: 20px;
@@ -460,7 +460,7 @@ body {
     border: 1px solid #ddd;
 
     .image-upload {
-      background: image-url("noimage.png") #fff no-repeat center center;
+      background: asset-url("noimage.png") #fff no-repeat center center;
       height: 200px;
       position: relative;
 

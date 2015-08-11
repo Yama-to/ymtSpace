@@ -20,9 +20,9 @@
         = f.hidden_field :prototype_id, value: @prototype.id
         %button#like.btn.btn-default.btn-like
           - if @prototype.liked?(current_user)
-            = image_tag "icon_heart_red.svg"
+            = image_tag asset_path("icon_heart_red.svg")
           - else
-            = image_tag "icon_heart.svg"
+            = image_tag asset_path("icon_heart.svg")
           Like
           %span.num
             = @prototype.likes_count

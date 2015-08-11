@@ -1,7 +1,7 @@
 .navbar.navbar-default.navbar-static-top.navbar-fixed-top
   .container
     %button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".navbar-responsive-collapse"}}
-    = link_to (image_tag "logo.png", alt: "PROTO TYPE - SHARE THE PROTOTYPE", height: "36px"), root_path, class: "navbar-brand"
+    = link_to (image_tag asset_path("logo.png"), alt: "PROTO TYPE - SHARE THE PROTOTYPE", height: "36px"), root_path, class: "navbar-brand"
     .navbar-collapse.collapse.navbar-responsive-collapse
       - if user_signed_in?
         //login
