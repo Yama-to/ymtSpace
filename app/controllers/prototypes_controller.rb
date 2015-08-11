@@ -45,7 +45,7 @@ class PrototypesController < ApplicationController
   private
 
   def set_random_seed
-    session[:random_seed] = rand(1000)
+    session[:random_seed] = rand(1000) if params[:page].to_i < 2
   end
 
   def set_prototype
