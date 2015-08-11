@@ -1,0 +1,7 @@
+- if @prototype.liked?(current_user)
+  = image_tag asset_path("icon_heart_red.svg")
+- else
+  = image_tag asset_path("icon_heart.svg")
+Like
+%span.num
+  = @prototype.likes_count
