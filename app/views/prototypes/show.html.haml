@@ -28,12 +28,12 @@
             = @prototype.likes_count
   .row.proto-edit
     .col-md-9
-      = image_tag @prototype.main_thumbnail, class: "img-responsive"
+      = image_tag @prototype.main_thumbnail, data: {action: "zoom"}, class: "img-responsive"
     .col-md-3
       %ul.proto-sub-list.list-group
         - @prototype.sub_thumbnails.each do |thumb|
           %li.list-group-item
-            = image_tag thumb, class: "img-responsive"
+            = image_tag thumb, data: {action: "zoom"}, class: "img-responsive"
   .row.proto-description
     .col-md-3
       %h4 Catch Copy
