@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+# start server as remote
+gem 'unicorn'
 # bootstrapper
 gem 'bootstrap-sass'
 # for haml use
