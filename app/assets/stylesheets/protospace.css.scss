@@ -256,25 +256,102 @@ body {
   background-color: #F7F7F7;
 }
 
-.navbar-default {
-  background-color: #fff;
+#brand {
+  background-color: rgba(255, 255, 255, 0);
   padding: 20px 0;
+  visibility: hidden;
 
   .navbar-brand {
     padding: 8px 0 0;
+
+    img {
+      height: 36px;
+    }
+  }
+}
+
+.zoom-overlay-open {
+
+  #brand {
+    visibility: visible;
+
+      .navbar-brand {
+
+      img {
+        transition: all .08s ease-in-out;
+
+        &:hover {
+          background-color: rgba(243, 251, 255, 0.9);
+          opacity: .6;
+
+          -webkit-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+          -moz-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+          box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+        }
+      }
+    }
+  }
+}
+
+.zoom-overlay-transitioning {
+
+  #brand {
+    visibility: visible;
+
+      .navbar-brand {
+
+      img {
+        background-color: rgba(243, 251, 255, 0.9);
+        opacity: .6;
+
+        -webkit-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+        -moz-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+        box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+      }
+    }
+  }
+}
+
+.navbar-default {
+  background-color: #fff;
+  padding: 20px 0;
+  z-index: 100;
+
+  .navbar-brand {
+    padding: 8px 0 0;
+
+    img {
+      height: 36px;
+      transition: all .08s ease-in-out;
+
+      &:hover {
+        background-color: rgba(243, 251, 255, 0.9);
+        opacity: .6;
+
+        -webkit-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+        -moz-box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+        box-shadow: 0 0 15px -3px rgba(225, 251, 255, 0.9);
+      }
+    }
   }
 
   .btn a {
-    color: #fff;
 
     &:hover {
       text-decoration: none;
     }
   }
+
+  .btn-primary{
+
+    a {
+      color: #efefff;
+    }
+  }
 }
 
 .jumbotron {
-  background-image: image-url("header_bg.png");
+  background-image: asset-url("header_bg.png");
   background-position:  center 92px;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -292,11 +369,11 @@ body {
 }
 
 .proto-content {
-  // width: 250px;
 
   .thumbnail {
     border-radius: 2px;
     padding: 0;
+    margin-bottom: 8px;
   }
 
   h3 {
@@ -435,7 +512,7 @@ body {
   }
 
   .cover-image-upload {
-    background: image-url("noimage-big.png") #fff no-repeat center center;
+    background: asset-url("noimage-big.png") #fff no-repeat center center;
     height: 500px;
     position: relative;
     margin-bottom: 20px;
@@ -459,7 +536,7 @@ body {
     border: 1px solid #ddd;
 
     .image-upload {
-      background: image-url("noimage.png") #fff no-repeat center center;
+      background: asset-url("noimage.png") #fff no-repeat center center;
       height: 200px;
       position: relative;
 

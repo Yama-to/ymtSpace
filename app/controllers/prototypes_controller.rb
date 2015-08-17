@@ -1,9 +1,10 @@
 class PrototypesController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+  before_action :set_random_seed,    only: [:index]
   before_action :set_prototype,      only: [:show, :edit, :update]
 
   def index
-    @prototypes = Prototype.prototype_pager(col: 'title', order: 'ASC', page_num: params[:page])
+    @prototypes = Prototype.prototypes_random(seed: session[:random_seed], page_num: params[:page])
   end
 
   def show
@@ -42,6 +43,10 @@ class PrototypesController < ApplicationController
   end
 
   private
+
+  def set_random_seed
+    session[:random_seed] = rand(1000) if params[:page].to_i < 2
+  end
 
   def set_prototype
     @prototype = Prototype.find(params[:id])

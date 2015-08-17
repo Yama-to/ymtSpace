@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   def set_default_avatar
-    avatar_url(:thumb) || "noimage.png"
+    avatar_url(:thumb) || asset_path("noimage.png")
   end
 
   def count_prototypes

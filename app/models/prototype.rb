@@ -14,7 +14,8 @@ class Prototype < ActiveRecord::Base
   # validation
   validates :title, :copy, :concept, presence: true
 
-  scope :prototype_pager, ->(col: 'id', order: 'DESC', page_num: 0){ order("#{col} #{order}").page(page_num).per(12).includes(:user) }
+  scope :prototypes_pager,  ->(col: 'id', order: 'DESC', page_num:){ order("#{col} #{order}").page(page_num).per(9).includes(:user) }
+  scope :prototypes_random, ->(seed:, page_num:){ order("rand(#{seed})").page(page_num).per(9).includes(:user) }
 
   def create_thumbnails_data(thumbnails_data)
     thumbnails_data.each { |k, v| k == "main" ? thumbnails.main.create(thumbnail: v) : thumbnails.sub.create(thumbnail: v) }
@@ -26,15 +27,15 @@ class Prototype < ActiveRecord::Base
   end
 
   def main_thumbnail
-    thumbnails.main.blank? ? "noimage-big.png" : thumbnails.main.first.thumbnail.to_s
+    thumbnails.main.blank? ? asset_path("noimage-big.png") : thumbnails.main.first.thumbnail.to_s
   end
 
   def sub_thumbnails
-    thumbnails.sub.blank? ? ["noimage-big.png"] : thumbnails.sub.map(&:thumbnail)
+    thumbnails.sub.blank? ? [asset_path("noimage-big.png")] : thumbnails.sub.map(&:thumbnail)
   end
 
   def set_default_sub(i)
-    self.sub_thumbnails[i].present? ? sub_thumbnails[i].to_s : "noimage.png"
+    self.sub_thumbnails[i].present? ? sub_thumbnails[i].to_s : asset_path("noimage.png")
   end
 
   def posted_date

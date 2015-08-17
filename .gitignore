@@ -14,3 +14,10 @@
 
 # Ignore uploaded files through ImageUploader.
 /public/uploads/*
+
+# Ignore secret keys
+/config/settings/*
+/config/settings.yml
+/config/settings.local.yml
+/config/settings/*.local.yml
+/config/environments/*.local.yml

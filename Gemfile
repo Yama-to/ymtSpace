@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use mysql as the database for Active Record
@@ -13,33 +12,38 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-# gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+# start server as remote
+gem 'unicorn'
 # bootstrapper
 gem 'bootstrap-sass'
 # for haml use
 gem 'erb2haml'
 gem 'haml-rails'
-# user avatars
-# thumbnails of prototypes
+# user avatars & thumbnails of prototypes
 gem 'carrierwave'
 gem 'rmagick', require: 'RMagick'
 # user administrations
 gem 'devise'
 # pagination
 gem 'kaminari'
-# minimalize form_for
-# gem 'simple_form'
 # tag administrations
 gem 'acts-as-taggable-on'
 # use pintarest-like interface
 gem 'masonry-rails'
+# uploader for amazon S3
+gem 'fog'
+# administration of constants
+gem 'rails_config', '0.4.2'
+# enable session data in database
+gem 'activerecord-session_store'
 # important gem!
 gem 'facetalker'
+# minimalize form_for
+# gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -5,6 +5,6 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find(params[:id])
-    @prototypes = Prototype.tagged_with(@tag.name).prototype_pager(page_num: params[:page])
+    @prototypes = Prototype.tagged_with(@tag.name).prototypes_pager(page_num: params[:page])
   end
 end
