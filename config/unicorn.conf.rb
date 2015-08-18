@@ -1,7 +1,7 @@
 # set lets
-$worker  = 4
+$worker  = 2
 $timeout = 30
-$app_dir = File.expand_path Rails.root
+$app_dir = "/home/ec2-user/projects/tomato-space"
 $listen  = File.expand_path 'tmp/sockets/.unicorn.sock', $app_dir
 $pid     = File.expand_path 'tmp/pids/unicorn.pid', $app_dir
 $std_log = File.expand_path 'log/unicorn.log', $app_dir
@@ -28,7 +28,7 @@ before_fork do |server, worker|
   old_pid = "#{server.config[:pid]}.oldbin"
   if old_pid != server.pid
     begin
-      Process.kill "QUIT", File.read(old_pid).to_i)
+      Process.kill "QUIT", File.read(old_pid).to_i
     rescue Errno::ENOENT, Errno::ESRCH
     end
   end

@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
-  database: ymtSpace_production
-  username: ymtSpace
+  database: tomatoSpace_production
+  username: root
   password: <%= ENV['YMTSPACE_DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock

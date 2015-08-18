@@ -27,7 +27,7 @@ gem 'erb2haml'
 gem 'haml-rails'
 # user avatars & thumbnails of prototypes
 gem 'carrierwave'
-gem 'rmagick', require: 'RMagick'
+gem 'rmagick', require: 'rmagick'
 # user administrations
 gem 'devise'
 # pagination
