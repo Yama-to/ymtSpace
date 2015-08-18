@@ -2,6 +2,9 @@
 error_log  /home/ec2-user/projects/tomato-space/log/nginx.error.log;
 access_log /home/ec2-user/projects/tomato-space/log/nginx.access.log;
 
+# max body size
+client_max_body_size 2G;
+
 upstream app_server {
   # for UNIX domain socket setups
   server unix:/home/ec2-user/projects/tomato-space/tmp/sockets/.unicorn.sock fail_timeout=0;
