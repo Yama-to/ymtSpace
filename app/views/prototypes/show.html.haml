@@ -7,7 +7,7 @@
         .media-body
           %h4#top-aligned-media.media-heading
             = @prototype.title
-            - if @prototype.user_id == current_user.id
+            - if user_signed_in? && @prototype.user_id == current_user.id
               = link_to "edit", edit_prototype_path(@prototype), class: "btn btn-xs navbar-inverse btn-edit"
           .proto-user
             by
@@ -16,16 +16,10 @@
               = @prototype.set_user_info
     .col-md-6.text-right
       = form_for @like, url: like_path, method: :patch, remote: true do |f|
-        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :user_id, value: (user_signed_in? ? current_user.id : nil)
         = f.hidden_field :prototype_id, value: @prototype.id
-        %button#like.btn.btn-default.btn-like
-          - if @prototype.liked?(current_user)
-            = image_tag asset_path("icon_heart_red.svg")
-          - else
-            = image_tag asset_path("icon_heart.svg")
-          Like
-          %span.num
-            = @prototype.likes_count
+        %button#like.btn.btn-default.btn-like{disabled: (user_signed_in? ? false : true)}
+          = render 'prototypes/likes/like_result'
   .row.proto-edit
     .col-md-9
       = image_tag @prototype.main_thumbnail, data: {action: "zoom"}, class: "img-responsive"
@@ -62,9 +56,15 @@
         = form_for @new_comment, remote: true do |f|
           %h4 Write a comment
           .row
-            .form-group.col-md-10
-              = f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control", id: "comment_field"
-              = f.hidden_field :user_id, value: current_user.id
-              = f.hidden_field :prototype_id, value: @prototype.id
-            .form-group.col-md-2
-              = f.submit :comment, class: "btn btn-primary"
+            - if user_signed_in?
+              .form-group.col-md-10
+                = f.text_area :text, required: true, placeholder: "Input comment", rows: "3", class: "form-control", id: "comment_field"
+                = f.hidden_field :user_id, value: current_user.id
+                = f.hidden_field :prototype_id, value: @prototype.id
+              .form-group.col-md-2
+                = f.submit :comment, class: "btn btn-primary"
+            - else
+              .form-group.col-md-10
+                = f.text_area :text, disabled: true, placeholder: "Sign in to put your comment", rows: "3", class: "form-control", id: "comment_field"
+              .form-group.col-md-2
+                = f.submit :comment, disabled: true, class: "btn btn-primary"

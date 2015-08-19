@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
+  # before_action :authenticate_user!, only: [:show]
   before_action :set_random_seed,    only: [:index]
   before_action :set_prototype,      only: [:show, :edit, :update]
 
@@ -9,7 +9,7 @@ class PrototypesController < ApplicationController
 
   def show
     @new_comment = Comment.new
-    @like = Like.find_or_init(current_user.id, params[:id])
+    @like = user_signed_in? ? Like.find_or_init(current_user.id, params[:id]) : Like.new
   end
 
   def new
