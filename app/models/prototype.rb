@@ -67,11 +67,11 @@ class Prototype < ActiveRecord::Base
   end
 
   def set_user_info
-    if user.participation.present? && user.occupation.present?
-      "#{user.participation} ／ #{user.occupation}"
-    elsif user.participation.present? && user.occupation.blank?
-      "#{user.participation}"
-    elsif user.participation.blank? && user.occupation.present?
+    if user.position.present? && user.occupation.present?
+      "#{user.position} ／ #{user.occupation}"
+    elsif user.position.present? && user.occupation.blank?
+      "#{user.position}"
+    elsif user.position.blank? && user.occupation.present?
       "#{user.occupation}"
     else
       "- No data -"

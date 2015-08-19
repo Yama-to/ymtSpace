@@ -15,15 +15,16 @@
                     = f.file_field :avatar
             = f.email_field :email, required: true, placeholder: "Input Email", class: "user-email", autocomplete: "off"
             = f.password_field :password, required: true, placeholder: "Input Password", class: "user-password", autocomplete: "off"
+            = f.password_field :password_confirmation, required: true, placeholder: "Confirm Password", class: "user-password", autocomplete: "off"
           .col-md-12
             %h4 Profile
             .user-user-profile.row
               .user-name.col-md-12
                 = f.text_area :profile, cols: "30", rows: "4", placeholder: "Input Profile"
-            %h4 Participation
+            %h4 Position
             .user-user-member.row
               .user-name.col-md-12
-                = f.text_area :participation, placeholder: "Input Participation"
+                = f.text_area :position, placeholder: "Input Position"
             %h4 Occupation
             .user-name_image.row
               .user-name.col-md-12
@@ -54,10 +55,10 @@
 -#             .user-user-profile.row
 -#               .user-name.col-md-12
 -#                 = f.input :profile, cols: "30", rows: "4", placeholder: "Input Profile", label: false
--#             %h4 Participation
+-#             %h4 position
 -#             .user-user-member.row
 -#               .user-name.col-md-12
--#                 = f.input :participation, placeholder: "Input Participation", label: false
+-#                 = f.input :position, placeholder: "Input Position", label: false
 -#             %h4 Occupation
 -#             .user-name_image.row
 -#               .user-name.col-md-12

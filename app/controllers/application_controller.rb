@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(:name, :participation, :occupation, :profile, :avatar)
-    devise_parameter_sanitizer.for(:account_update).push(:name, :participation, :occupation, :profile, :avatar)
+    devise_parameter_sanitizer.for(:sign_up).push(:name, :position, :occupation, :profile, :avatar)
+    devise_parameter_sanitizer.for(:account_update).push(:name, :position, :occupation, :profile, :avatar)
   end
 end
